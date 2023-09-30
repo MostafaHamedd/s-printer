@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter_android/webview_flutter_android.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//https://images.app.goo.gl/YqnjzFad1UUvGNrcA
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -48,7 +48,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  WebViewController controller = WebViewController()
+  ..setJavaScriptMode(JavaScriptMode.unrestricted)
+  ..setBackgroundColor(const Color(0x00000000))
+  ..setNavigationDelegate(
+  NavigationDelegate(
+  onProgress: (int progress) {
+  // Update loading bar.
+  },
+  onPageStarted: (String url) {},
+  onPageFinished: (String url) {},
+  onWebResourceError: (WebResourceError error) {},
+  onNavigationRequest: (NavigationRequest request) {
+  if (request.url.startsWith('https://www.youtube.com/')) {
+  return NavigationDecision.prevent;
+  }
+  return NavigationDecision.navigate;
+  },
+  ),
+  )
+  ..loadRequest(Uri.parse('https://facebook.com'));   // REPLACE YOUR LINK HERE
 
   void _incrementCounter() {
     setState(() {
@@ -66,15 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
         ),
         body: Center(
-            // child:WebView(
-            //   initialUrl: 'http://web.soligold.com/newprinter.aspx', // Replace with your desired URL
-            //   javascriptMode: JavascriptMode.unrestricted,
-            //   onWebResourceError: (error) {
-            //     print("Webview Error: ${error.description}");
-            //   },
-            //
-            // )
-        )
+            child:WebViewWidget(controller: controller),
+
+            ),
+
     );
   }
 }
