@@ -50,7 +50,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   webview_flutter: ^4.3.0
-
+  rename: ^2.0.1
 
 
 
