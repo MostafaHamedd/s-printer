@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   },
   ),
   )
-  ..loadRequest(Uri.parse('https://facebook.com'));   // REPLACE YOUR LINK HERE
+  ..loadRequest(Uri.parse('http://web.soligold.com/newprinter.aspx'));   //  REPLACE YOUR LINK HERE (http://web.soligold.com/newprinter.aspx)
 
   void _incrementCounter() {
     setState(() {
